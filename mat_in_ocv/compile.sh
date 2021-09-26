@@ -1,0 +1,1 @@
+g++ ./main.cpp ./test0.cpp ./test1.cpp -o ./test -I.

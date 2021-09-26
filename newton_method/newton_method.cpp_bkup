@@ -1,0 +1,44 @@
+#include <iostream>
+#include <sstream>
+#include <thread>
+#include <chrono>
+#include <future>
+template <typename OUT>
+bool function(OUT& out)
+{
+    for(int i=0; i<4; i++)
+    {
+        out<<i<<";"<<std::endl;
+        std::cout << "func:" << i <<std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+    std::cout << "finished;" << std::endl;
+    out << "finished;" << std::endl;
+    return true;
+}
+bool func(int& a)
+{
+    return true;
+}
+int func1()
+{
+    return 0;
+}
+int main()
+{
+    std::stringstream out;
+    std::string log;
+    std::chrono::milliseconds span(1000);
+    std::future<bool> res = std::async(std::launch::async, function<std::stringstream>, std::ref(out));
+    while(res.wait_for(span) != std::future_status::ready)
+    {
+        out>>log;
+        std::cout<< log <<std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+    bool result = res.get();
+    out>>log;
+    std::cout<< log <<std::endl;
+    return 0;
+}
+
