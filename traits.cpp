@@ -1,5 +1,7 @@
 #include <iostream>
 #include <math.h>
+//main idea:use traits to get infomation about the template type
+
 template<class T>
 class PRECISE{
     static T MIN(){return 0;}
