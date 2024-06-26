@@ -10,6 +10,9 @@
 //it is a decorator, the computes use the same refer to the data, and contribute computation to the same data
 
 
+//but, it is weird and seems useless, hahaha
+
+
 struct ComputeData
 {
     ComputeData(){std::cout << "ComputeData construct" << std::endl;}
